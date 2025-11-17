@@ -16,7 +16,7 @@ X = bank_data
 # Target data
 Y = bank_data
 
-X_train,X_valid, Y_train, Y_valid  = train_test_split(X, Y)
+X_train, X_valid, Y_train, Y_valid  = train_test_split(X, Y)
 
 
 #bank_data.describe()
