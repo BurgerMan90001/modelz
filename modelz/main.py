@@ -2,21 +2,22 @@
 Main entry point
 """
 import csv
-from typing import Tuple
 
 import numpy as np
 from sklearn import tree
 
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
 
-def read_csv(url:str) -> Tuple[list[list[str]], list[str]]:
+
+def read_csv(url:str):
     """_summary_
     """
     with open(url, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         return iterate_reader(reader , 5)      
-def slice_y(target_list: list[str], slice_index: int) -> Tuple[list[str],str]:
+def slice_y(target_list: list[str], slice_index: int):
     """_summary_
     Args:
         target_list (list[str]): List to be sliced
@@ -39,7 +40,7 @@ def slice_list_at_index(
     """
     return target_list[:slice_at_index], target_list[-slice_at_index:]
 
-def iterate_reader(reader, max_iterations: int) -> Tuple[list[list[str]], list[str]]:
+def iterate_reader(reader, max_iterations: int):
     """ iterates through the read csv file 
     Args:
          reader (Reader): CSV reader
@@ -75,11 +76,13 @@ le = LabelEncoder()
 X = data[0]
 Y = data[1]
 test = ['apple', 'pear', 'apple', 'orange']
+#transformed_data = encoding.fit_transform
 #from sklearn.preprocessing import LabelBinarizer
 clf = tree.DecisionTreeClassifier()
-print(X[0][0])
 
+one_hot_encoder = OneHotEncoder()
 
+test = one_hot_encoder.fit_transform(data[0])
 def encode_y_classes(y_list:list[str]):
     """ Encodes a list of y labels between 0 and n_classes-1.
     Args:
@@ -88,9 +91,11 @@ def encode_y_classes(y_list:list[str]):
     y_encoded = le.fit_transform(y_list)
     #test.
     #le.transform(y_list)
-    print(y_encoded)
+    
     return y_encoded
-encode_y_classes(test)
+print(encode_y_classes(test))
+
+
 
 #model = SVC()
 #Y_dense = LabelBinarizer().fit_transform(Y)
