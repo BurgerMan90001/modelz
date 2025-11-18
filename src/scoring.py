@@ -1,17 +1,9 @@
 from sklearn.model_selection import cross_val_score
 
-def get_percent(mae, y_valid):
-    """Returns the accuracy of the mean absolute error
+def print_score(model, data):
+    pass
 
-    Args:
-        mae (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    return ((y_valid.mean()- mae) / y_valid.mean()) * 100
-
-def print_cross_val_score(model, X, y, y_valid):
+def print_cross_val_score(model, X, y):
     """ Prints the score of the model
 
     Args:
@@ -25,5 +17,4 @@ def print_cross_val_score(model, X, y, y_valid):
                                   cv=5, scoring="neg_mean_absolute_error")
 
     print(scores)
-    print(get_percent(scores.mean(), y_valid))
-
+    print(scores.mean())
