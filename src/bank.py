@@ -15,7 +15,8 @@ bank_data = pd.read_csv("data/bank-full.csv", delimiter=";")
 
 TARGET = "y"
 
-X = bank_data.drop(TARGET,axis=1)
+X = bank_data.drop([TARGET, "contact","poutcome","month"],axis=1)
+print(X)
 y = bank_data[TARGET]
 
 # Manually encode target data

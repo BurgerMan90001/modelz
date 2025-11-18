@@ -22,6 +22,7 @@ def define_pipeline(model, numeric_cols, categorical_cols):
     
     categorical_transformer = Pipeline(steps=[
         ("imputer", SimpleImputer(strategy='constant')),
+        #("ordinal", OrdinalEncoder()),
         ("onehot", OneHotEncoder(handle_unknown="ignore"))
     ])
 
