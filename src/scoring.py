@@ -14,7 +14,7 @@ def print_cross_val_score(model, X, y):
         _type_: _description_
     """
     scores = -1 * cross_val_score(model, X, y,
-                                  cv=5, scoring="neg_mean_absolute_error")
+                                  cv=5, scoring="neg_mean_absolute_error", error_score="raise")
 
     print(scores)
     print(scores.mean())
