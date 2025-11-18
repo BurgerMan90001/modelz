@@ -9,7 +9,7 @@ from xgboost import XGBRegressor
 
 from pipelines import define_pipeline
 from scoring import print_cross_val_score
-from scoring import print_score
+from scoring import print_score_mae
 
 
 
@@ -35,7 +35,7 @@ categorical_cols = [col for col in X_train if (X_train[col].dtype == "object") a
 # numerical columns
 numerical_cols = [col for col in X_train.columns if X_train[col].dtype in ['int64', 'float64']]
 
-pipeline = define_pipeline(model, numerical_cols, categorical_cols, y_train)
+pipeline = define_pipeline(model, numerical_cols, categorical_cols)
 
 
 scores = -1 * cross_val_score(pipeline, X, y,

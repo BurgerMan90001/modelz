@@ -5,10 +5,10 @@ from sklearn.compose import ColumnTransformer
 
 from sklearn.preprocessing import OrdinalEncoder
 
-from sklearn.preprocessing import LabelEncoder
 
 
-def define_pipeline(model, numeric_cols, categorical_cols, y_col):
+
+def define_pipeline(model, numeric_cols, categorical_cols):
     """_summary_
 
     Args:
@@ -25,12 +25,11 @@ def define_pipeline(model, numeric_cols, categorical_cols, y_col):
         ("imputer", SimpleImputer(strategy='constant')),
         ("onehot", OneHotEncoder(handle_unknown="ignore"))
     ])
-    label_transformer = LabelEncoder()
 
     preprocessor = ColumnTransformer(transformers=[
         ('numbers', num_transformer, numeric_cols),
         ('categorical', categorical_transformer, categorical_cols),
-        #('y-col', label_transformer, y_col),
+        
     ])
 
     pipeline = Pipeline(steps=[

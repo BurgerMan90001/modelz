@@ -3,12 +3,13 @@ import pandas as pd
 from xgboost import XGBRegressor
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error
+
 
 from pipelines import define_pipeline
 from scoring import print_cross_val_score
-from scoring import print_score
+from scoring import print_score_mae
 
+from sklearn.preprocessing import LabelEncoder
 
 bank_data = pd.read_csv("data/bank-full.csv", delimiter=";")
 
@@ -16,12 +17,13 @@ TARGET = "y"
 # Input data
 X = bank_data.drop(TARGET,axis=1)
 
-
+label_encoder = LabelEncoder()
 # Target data
 y = bank_data[TARGET]
-print(y)
+encode_y = pd.Series(label_encoder.fit_transform(y)) # pyright: ignore[reportCallIssue, reportArgumentType]
+
 # 80% traing 20% validation
-X_train, X_valid, y_train, y_valid = train_test_split(X,y, train_size=0.8,test_size=0.2)
+X_train, X_valid, y_train, y_valid = train_test_split(X,encode_y, train_size=0.8,test_size=0.2)
 
 #print(shill_bidding_data)
 
@@ -44,24 +46,14 @@ model = XGBRegressor(n_estimators=250,
 
 # non-numerical columns
 categorical_cols = [col for col in X_train if (X_train [col].dtype == "object") and (X_train [col].nunique() < 15)]
-#print(categorical_cols)
+
 # numerical columns
 numerical_cols = [col for col in X_train .columns if X_train [col].dtype in ['int64', 'float64']]
-#print(numerical_cols)
 
-pipeline = define_pipeline(model, numerical_cols, categorical_cols, y)
-
-
-pipeline.fit(X_train, y_train)
+#print(y.columns)
+pipeline = define_pipeline(model, numerical_cols, categorical_cols)
 
 
-#print(pipeline.score(X,y))
-#print_cross_val_score(pipeline,X, y)
 
-#pipeline.fit(X_train, y_train)
+print_cross_val_score(pipeline,X, encode_y)
 
-#predictions= pipeline.predict(X_valid)
-
-#mae = mean_absolute_error(predictions, y_valid)
-
-#print(mae)
