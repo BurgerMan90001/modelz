@@ -14,18 +14,16 @@ from sklearn.preprocessing import LabelEncoder
 bank_data = pd.read_csv("data/bank-full.csv", delimiter=";")
 
 TARGET = "y"
-# Input data
-X = bank_data.drop(TARGET,axis=1)
 
-label_encoder = LabelEncoder()
-# Target data
+X = bank_data.drop(TARGET,axis=1)
 y = bank_data[TARGET]
+
+# Manually encode target data
+label_encoder = LabelEncoder()
 encode_y = pd.Series(label_encoder.fit_transform(y)) # pyright: ignore[reportCallIssue, reportArgumentType]
 
 # 80% traing 20% validation
 X_train, X_valid, y_train, y_valid = train_test_split(X,encode_y, train_size=0.8,test_size=0.2)
-
-#print(shill_bidding_data)
 
 # non-numerical columns
 categorical_cols = [col for col in X_train if X_train[col].dtype == "object"]
@@ -33,14 +31,9 @@ categorical_cols = [col for col in X_train if X_train[col].dtype == "object"]
 # numerical columns
 num_cols = list(X_train.drop(categorical_cols,axis=1))
 
-#ord_encoder = OrdinalEncoder()
 
-#encode_y_train = pd.DataFrame(ord_encoder.fit_transform(y_train))
-#encode_y_valid = pd.DataFrame(ord_encoder.transform(y_valid))
-
-
-model = XGBRegressor(n_estimators=250,
-                     learning_rate=0.1,
+model = XGBRegressor(n_estimators=1000,
+                     learning_rate=0.01,
                      random_state=0)
 
 
@@ -48,12 +41,10 @@ model = XGBRegressor(n_estimators=250,
 categorical_cols = [col for col in X_train if (X_train [col].dtype == "object") and (X_train [col].nunique() < 15)]
 
 # numerical columns
-numerical_cols = [col for col in X_train .columns if X_train [col].dtype in ['int64', 'float64']]
+numerical_cols = [col for col in X_train.columns if X_train [col].dtype in ['int64', 'float64']]
 
 #print(y.columns)
 pipeline = define_pipeline(model, numerical_cols, categorical_cols)
 
 
-
 print_cross_val_score(pipeline,X, encode_y)
-

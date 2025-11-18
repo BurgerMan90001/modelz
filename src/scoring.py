@@ -9,7 +9,7 @@ def print_score_mae(model, X_train, X_valid, y_train, y_valid):
     print(mae)
 
 def print_cross_val_score(model, X, y):
-    """ Prints the score of the model
+    """ Prints the cross validated score of the model in mae.
 
     Args:
         y_valid (_type_): _description_

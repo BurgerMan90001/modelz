@@ -7,7 +7,6 @@ from sklearn.preprocessing import OrdinalEncoder
 
 
 
-
 def define_pipeline(model, numeric_cols, categorical_cols):
     """_summary_
 
