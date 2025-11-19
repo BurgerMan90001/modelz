@@ -6,9 +6,9 @@ from sklearn.model_selection import cross_val_score
 
 from xgboost import XGBRegressor
 
-from pipelines import define_pipeline
-from scoring import print_cross_val_score
-from scoring import print_score_mae
+from util.pipelines import define_pipeline
+from util.scoring import print_cross_val_score
+from util.scoring import print_score_mae
 
 
 shill_bidding_data = pd.read_csv("data/shill-bidding.csv")

@@ -19,17 +19,16 @@ def define_pipeline(model, numeric_cols, categorical_cols):
         _type_: _description_
     """
     num_transformer = SimpleImputer(strategy="constant")
-    
+
     categorical_transformer = Pipeline(steps=[
         ("imputer", SimpleImputer(strategy='constant')),
-        #("ordinal", OrdinalEncoder()),
         ("onehot", OneHotEncoder(handle_unknown="ignore"))
     ])
 
     preprocessor = ColumnTransformer(transformers=[
         ('numbers', num_transformer, numeric_cols),
         ('categorical', categorical_transformer, categorical_cols),
-        
+
     ])
 
     pipeline = Pipeline(steps=[

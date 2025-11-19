@@ -3,20 +3,20 @@ import pandas as pd
 from xgboost import XGBRegressor
 
 from sklearn.model_selection import train_test_split
-
-
-from pipelines import define_pipeline
-from scoring import print_cross_val_score
-from scoring import print_score_mae
-
 from sklearn.preprocessing import LabelEncoder
+
+from util.pipelines import define_pipeline
+from util.scoring import print_cross_val_score
+from util.scoring import print_score_mae
+
+
 
 bank_data = pd.read_csv("data/bank-full.csv", delimiter=";")
 
 TARGET = "y"
 
 X = bank_data.drop([TARGET, "contact","poutcome","month"],axis=1)
-print(X)
+#print(X)
 y = bank_data[TARGET]
 
 # Manually encode target data
