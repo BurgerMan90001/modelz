@@ -1,9 +1,6 @@
 
 import pandas as pd
 
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
-
 from xgboost import XGBRegressor
 
 from util.pipelines import define_pipeline
@@ -13,12 +10,11 @@ from util.scoring import print_score_mae
 
 shill_bidding_data = pd.read_csv("data/shill-bidding.csv")
 
-TARGET = "Class"
+y_col = "Class"
 
-X = shill_bidding_data.drop(TARGET,axis=1)
-y= shill_bidding_data[TARGET]
+X = shill_bidding_data.drop([y_col, "Bidder_ID", "Auction_ID"],axis=1)
+y= shill_bidding_data[y_col]
 
-X_train, X_valid, y_train, y_valid = train_test_split(X,y, train_size=0.8,test_size=0.2)
 
 model = XGBRegressor(n_estimators=250,
                      learning_rate=0.1,
@@ -26,12 +22,10 @@ model = XGBRegressor(n_estimators=250,
 
 
 # non-numerical columns
-categorical_cols = [col for col in X_train if (X_train[col].dtype == "object") and (X[col].nunique() < 15)]
+categorical_cols = [col for col in X if (X[col].dtype == "object")]
 # numerical columns
-numerical_cols = [col for col in X_train.columns if X_train[col].dtype in ['int64', 'float64']]
+numerical_cols = [col for col in X.columns if X[col].dtype in ['int64', 'float64']]
 
 pipeline = define_pipeline(model, numerical_cols, categorical_cols)
-
-
 
 print_cross_val_score(pipeline,X,y)

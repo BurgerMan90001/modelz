@@ -3,12 +3,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-from sklearn.preprocessing import OrdinalEncoder
-
+#from sklearn.preprocessing import OrdinalEncoder
 
 
 def define_pipeline(model, numeric_cols, categorical_cols):
-    """_summary_
+    """ Creates a pipeline
 
     Args:
         model (_type_): _description_
@@ -28,7 +27,6 @@ def define_pipeline(model, numeric_cols, categorical_cols):
     preprocessor = ColumnTransformer(transformers=[
         ('numbers', num_transformer, numeric_cols),
         ('categorical', categorical_transformer, categorical_cols),
-
     ])
 
     pipeline = Pipeline(steps=[
