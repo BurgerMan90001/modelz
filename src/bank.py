@@ -1,6 +1,7 @@
 import pandas as pd
 
-from xgboost import XGBRegressor
+#from xgboost import XGBRegressor
+from xgboost import XGBClassifier
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -24,13 +25,13 @@ encode_y = pd.Series(label_encoder.fit_transform(y)) # pyright: ignore[reportCal
 
 #X_train, X_valid, y_train, y_valid = train_test_split(X,encode_y, train_size=0.8,test_size=0.2)
 
-model = XGBRegressor(n_estimators=1000,
+model = XGBClassifier(n_estimators=250,
                      learning_rate=0.01,
-                     random_state=41)
+                     random_state=0)
 
 
 # non-numerical columns
-categorical_cols = [col for col in X if (X [col].dtype == "object") 
+categorical_cols = [col for col in X.columns if (X[col].dtype == "object") 
                     and (X [col].nunique() < 15)]
 
 # numerical columns

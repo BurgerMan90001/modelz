@@ -1,0 +1,6 @@
+
+
+import pandas as pd
+# LAST,FIRST,BLOCK,GENDER,RACE,BIRTH DATE,HEIGHT,WEIGHT,VICTIM MINOR
+#  am I a sex offender?
+paul = ["PAUL", "CASIGAY","016XX N MOUNTAIN AVE","MALE","ASIAN","3/26/2006","110"]
