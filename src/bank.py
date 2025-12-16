@@ -23,8 +23,6 @@ label_encoder = LabelEncoder()
 encode_y = pd.Series(label_encoder.fit_transform(y)) # pyright: ignore[reportCallIssue, reportArgumentType]
 
 
-#X_train, X_valid, y_train, y_valid = train_test_split(X,encode_y, train_size=0.8,test_size=0.2)
-
 model = XGBClassifier(n_estimators=250,
                      learning_rate=0.01,
                      random_state=0)
