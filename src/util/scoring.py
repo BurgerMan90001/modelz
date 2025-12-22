@@ -8,7 +8,7 @@ def print_score_mae(model, X_train, X_valid, y_train, y_valid):
 
     print(mae)
 
-def print_cross_val_score(model, X, y):
+def print_cross_val_score(model, X, y, scoring):
     """ Prints the cross validated score of the model in mae.
 
     Args:
@@ -19,7 +19,7 @@ def print_cross_val_score(model, X, y):
         _type_: _description_
     """
     scores= cross_val_score(model, X, y,
-                                  cv=5, scoring="accuracy", error_score="raise")
+                                  cv=5, scoring=scoring, error_score="raise")
 
     print(scores)
     print(scores.mean())

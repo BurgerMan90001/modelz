@@ -28,4 +28,4 @@ numerical_cols = [col for col in X.columns if X[col].dtype in ['int64', 'float64
 
 pipeline = define_pipeline(model, numerical_cols, categorical_cols)
 
-print_cross_val_score(pipeline,X,y)
+print_cross_val_score(pipeline,X,y,scoring="accuracy")

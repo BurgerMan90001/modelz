@@ -1,6 +1,6 @@
 import pandas as pd
 
-#from xgboost import XGBRegressor
+# Its fucking classification
 from xgboost import XGBClassifier
 
 from sklearn.model_selection import train_test_split
@@ -39,4 +39,4 @@ numerical_cols = [col for col in X.columns if X [col].dtype in ['int64', 'float6
 
 pipeline = define_pipeline(model, numerical_cols, categorical_cols)
 
-print_cross_val_score(pipeline,X, encode_y)
+print_cross_val_score(pipeline,X, encode_y, scoring="accuracy")
